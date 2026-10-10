@@ -3,9 +3,94 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Robert Farrelly</title>
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Personal site of Robert Farrelly.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Robert Farrelly — Personal site</title>
+<style>
+  :root {
+    color-scheme: light;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background: #fff;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0;
+  }
+
+  body::after {
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
+    content: "";
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+    opacity: 0.14;
+  }
+
+  .page {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    min-height: 100vh;
+    min-height: 100svh;
+    grid-template-rows: 1fr auto;
+    gap: 4rem;
+    padding: 10px;
+  }
+
+  .intro,
+  .about {
+    margin: 0;
+    font-size: clamp(2rem, 3.15vw, 2.75rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+  }
+
+  .about a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .about a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .page {
+      gap: 2rem;
+    }
+  }
+</style>
 </head>
 <body>
-<h1>Hello world</h1>
+<main class="page">
+  <p class="intro">Robert Farrelly. I’m a service designer and researcher in Ireland’s Central Design Team. I use facilitation and co-design to help teams understand complex public services and make them work better for the people who use them.</p>
+  <p class="about">I’m an adjunct professor at the UCD School of Education and a visiting lecturer at NCAD, where I’m completing an MA in Service Design. At the Central Design Team, I’m helping to build a community of practice for designers across the Irish public service. <a id="email">Email</a>, <a href="https://www.linkedin.com/in/rob-farrelly/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, <a href="https://medium.com/@robertfarrelly" target="_blank" rel="noopener noreferrer">Medium</a>.</p>
+</main>
+<script>
+  const email = String.fromCharCode(104, 101, 108, 108, 111, 64, 114, 111, 98, 101, 114, 116, 102, 97, 114, 114, 101, 108, 108, 121, 46, 99, 111, 109);
+  const emailLink = document.getElementById("email");
+  emailLink.href = `mailto:${email}`;
+</script>
 </body>
 </html>
