@@ -44,17 +44,20 @@
     position: relative;
     z-index: 2;
     display: grid;
-    min-height: 100vh;
-    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
     grid-template-rows: 1fr auto;
-    gap: 4rem;
+    gap: 1.5em;
     padding: 10px;
+    /* Fallback before JS fits the text: scale with whichever axis is tighter */
+    font-size: min(3.15vw, 3.6vh, 2.75rem);
   }
 
   .intro,
   .about {
     margin: 0;
-    font-size: clamp(2rem, 3.15vw, 2.75rem);
+    font-size: 1em;
     font-weight: 500;
     letter-spacing: -0.025em;
     line-height: 1.12;
@@ -77,12 +80,7 @@
 
   @media (max-width: 600px) {
     .page {
-      gap: 2rem;
-    }
-
-    .intro,
-    .about {
-      font-size: 1.625rem;
+      font-size: min(6.5vw, 3.2vh);
     }
   }
 </style>
@@ -96,6 +94,25 @@
   const email = String.fromCharCode(104, 101, 108, 108, 111, 64, 114, 111, 98, 101, 114, 116, 102, 97, 114, 114, 101, 108, 108, 121, 46, 99, 111, 109);
   const emailLink = document.getElementById("email");
   emailLink.href = `mailto:${email}`;
+
+  // Fit all text inside the viewport: largest font size (up to the design size) that doesn't overflow.
+  const page = document.querySelector(".page");
+  function fitText() {
+    page.style.fontSize = "";
+    const max = parseFloat(getComputedStyle(page).fontSize) * 1.6;
+    const cap = innerWidth <= 600 ? 26 : 44;
+    let lo = 8, hi = Math.min(max, cap);
+    while (hi - lo > 0.25) {
+      const mid = (lo + hi) / 2;
+      page.style.fontSize = mid + "px";
+      if (page.scrollHeight <= page.clientHeight && page.scrollWidth <= page.clientWidth) lo = mid;
+      else hi = mid;
+    }
+    page.style.fontSize = lo + "px";
+  }
+  fitText();
+  addEventListener("resize", fitText);
+  if (document.fonts) document.fonts.ready.then(fitText);
 </script>
 </body>
 </html>
